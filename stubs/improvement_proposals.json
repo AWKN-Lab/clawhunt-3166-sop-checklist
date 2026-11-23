@@ -1,0 +1,6 @@
+{
+  "IP-1001": {"title": "入驻材料清单细化", "status": "accepted"},
+  "IP-1002": {"title": "SLA 与排班对齐", "status": "scheduled"},
+  "IP-1003": {"title": "取消资质复核(未通过)", "status": "rejected"},
+  "IP-1004": {"title": "试点扩大方案(草稿)", "status": "draft"}
+}

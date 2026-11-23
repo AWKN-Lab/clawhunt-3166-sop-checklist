@@ -1,0 +1,207 @@
+{
+  "export_schema_version": "1.0",
+  "exported_at": "2026-11-23T12:00:00Z",
+  "template": {
+    "template_id": "SOP-MEMBER-ONBOARD",
+    "name": "会员企业入驻 SOP",
+    "version": "2.3.0",
+    "previous_version": "2.2.0",
+    "change_type": "content",
+    "status": "draft",
+    "owner": "SOP-OWNER",
+    "club_operating_hours": {
+      "start": "09:00",
+      "end": "18:00",
+      "timezone": "Asia/Shanghai",
+      "workdays": [
+        "Mon",
+        "Tue",
+        "Wed",
+        "Thu",
+        "Fri"
+      ]
+    },
+    "roles": [
+      "member_ops",
+      "frontline_rep",
+      "kb_editor",
+      "ops_manager",
+      "shift_plan"
+    ],
+    "reviewers": [
+      {
+        "role": "frontline_rep",
+        "name": "一线代表A",
+        "decision": "approved",
+        "reviewed_at": "2026-11-20"
+      },
+      {
+        "role": "ops_manager",
+        "name": "运营负责人B",
+        "decision": "approved",
+        "reviewed_at": "2026-11-21"
+      }
+    ],
+    "approvals": [
+      {
+        "role": "ops_manager",
+        "name": "运营负责人B",
+        "signed_at": "2026-11-22"
+      }
+    ],
+    "changelog": [],
+    "release_notice": "",
+    "pilot_conclusion": "",
+    "rollback_plan": "",
+    "linked_improvement_proposals": [
+      "IP-1003"
+    ],
+    "review_metrics": [
+      {
+        "name": "一次通过率",
+        "field": "review_result"
+      },
+      {
+        "name": "平均处理时长",
+        "field": "handling_hours"
+      }
+    ]
+  },
+  "steps": [
+    {
+      "step_key": "KYC_REVIEW",
+      "title": "企业资质复核",
+      "assigned_role": "member_ops",
+      "escalation_role": "ops_manager",
+      "completion_criteria": "营业执照与统一社会信用代码核验一致并留存扫描件",
+      "required_materials": [
+        "营业执照扫描件",
+        "法人授权书"
+      ],
+      "sla_hours": 0,
+      "exception_path": "材料缺失时退回并记录原因，48 小时内未补齐则升级至运营负责人",
+      "prerequisites": [
+        "REVIEW_ARCHIVE"
+      ],
+      "form_fields": [
+        {
+          "key": "company_name",
+          "label": "企业名称",
+          "type": "text",
+          "required": true
+        },
+        {
+          "key": "uscc",
+          "label": "统一社会信用代码",
+          "type": "text",
+          "required": true
+        },
+        {
+          "key": "license_file",
+          "label": "营业执照附件",
+          "type": "file",
+          "required": true
+        }
+      ],
+      "referenced_kb_articles": [
+        "KB-1001",
+        "KB-1002"
+      ]
+    },
+    {
+      "step_key": "MATERIAL_CHECK",
+      "title": "入会材料完整性检查",
+      "assigned_role": "unknown_role",
+      "escalation_role": "ops_manager",
+      "completion_criteria": "材料清单逐项勾选完毕，缺件项均登记补件期限",
+      "required_materials": [
+        "入会申请表",
+        "场地使用确认单"
+      ],
+      "sla_hours": 12,
+      "exception_path": "缺件时生成补件任务并通知企业联系人，超期未补则升级运营负责人",
+      "prerequisites": [
+        "KYC_REVIEW"
+      ],
+      "form_fields": [
+        {
+          "key": "material_complete",
+          "label": "材料是否齐全",
+          "type": "boolean",
+          "required": true
+        },
+        {
+          "key": "missing_note",
+          "label": "缺件说明",
+          "type": "textarea",
+          "required": false
+        }
+      ],
+      "referenced_kb_articles": [
+        "KB-1002"
+      ]
+    },
+    {
+      "step_key": "TERRITORY_ASSIGN",
+      "title": "区域与资源位分配",
+      "assigned_role": "ops_manager",
+      "escalation_role": "ops_manager",
+      "completion_criteria": "分配结果写入会员档案并通知一线代表确认",
+      "required_materials": [
+        "资源位台账"
+      ],
+      "sla_hours": 8,
+      "exception_path": "资源位冲突时由运营负责人协调，超过 24 小时仍未解决则登记例外并上报",
+      "prerequisites": [
+        "KYC_REVIEW"
+      ],
+      "form_fields": [
+        {
+          "key": "site_code",
+          "label": "场馆编码",
+          "type": "text",
+          "required": true
+        },
+        {
+          "key": "resource_slot",
+          "label": "资源位",
+          "type": "select",
+          "required": true
+        }
+      ],
+      "referenced_kb_articles": []
+    },
+    {
+      "step_key": "REVIEW_ARCHIVE",
+      "title": "复核与归档",
+      "assigned_role": "kb_editor",
+      "escalation_role": "ops_manager",
+      "completion_criteria": "全部材料归档至知识库并生成复盘统计口径",
+      "required_materials": [
+        "归档清单"
+      ],
+      "sla_hours": 16,
+      "exception_path": "归档失败时重试两次并通知知识库管理员，仍失败则升级运营负责人",
+      "prerequisites": [
+        "TERRITORY_ASSIGN"
+      ],
+      "form_fields": [
+        {
+          "key": "review_result",
+          "label": "复核结论",
+          "type": "select",
+          "required": true
+        },
+        {
+          "key": "handling_hours",
+          "label": "处理时长(小时)",
+          "type": "number",
+          "required": true
+        }
+      ],
+      "referenced_kb_articles": [
+        "KB-1002"
+      ]
+    }
+  ]
+}

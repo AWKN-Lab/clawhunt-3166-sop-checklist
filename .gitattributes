@@ -1,0 +1,2 @@
+# Keep bytes exactly as committed so MANIFEST.sha256 stays valid after clone.
+* -text

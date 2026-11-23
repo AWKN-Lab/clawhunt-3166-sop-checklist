@@ -1,0 +1,28 @@
+DRY-RUN input=samples\sample_pass.json steps=4 checks=24 auto=22 manual=2
+DRY-RUN kb_stub=loaded proposal_stub=loaded
+  A1 [auto] 每步有责任角色
+  A2 [auto] 每步有完成标准
+  A3 [auto] 每步有必需材料
+  A4 [auto] 知识库引用有效
+  A5 [auto] 无占位内容
+  A6 [auto] 前置依赖有效
+  B1 [auto] SLA 取值合理
+  B2 [auto] 一线代表已复核
+  B3 [auto] 角色已登记
+  B4 [manual] 不撞营业时间
+  B5 [auto] 有异常路径
+  B6 [auto] 依赖无环
+  C1 [auto] step_key 唯一
+  C2 [auto] step_key 规范
+  C3 [auto] 表单字段标记齐全
+  C4 [auto-cond] 复盘统计字段未删
+  C5 [auto] 版本号按规则递增
+  C6 [auto] 字段 key 唯一规范
+  D1 [auto] 变更日志已填写
+  D2 [auto] 改进提案状态合规
+  D3 [auto] 发布通知已起草
+  D4 [auto] 试运行结论已归档
+  D5 [auto] 回滚方案已写明
+  D6 [manual] 审批签字齐备
+DRY-RUN ok (no report written)
+dryrun_rc=0

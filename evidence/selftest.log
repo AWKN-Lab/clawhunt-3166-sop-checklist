@@ -1,0 +1,26 @@
+  ok   sample_pass.json 输出 24 项（实际 24）
+  ok   sample_pass.json 三态合计为 24
+  ok   sample_pass.json 每项三态合法
+  ok   sample_pass.json fail 集合 == []（实际 []）
+  ok   合规样例 fail=0
+  ok   合规样例自动核验项 >=10（实际 22）
+  ok   sample_err_content.json 输出 24 项（实际 24）
+  ok   sample_err_content.json 三态合计为 24
+  ok   sample_err_content.json 每项三态合法
+  ok   sample_err_content.json fail 集合 == ['A1', 'A2', 'A3', 'A4', 'A5', 'A6']（实际 ['A1', 'A2', 'A3', 'A4', 'A5', 'A6']）
+  ok   sample_err_content.json 至少 1 项 fail
+  ok   sample_err_data.json 输出 24 项（实际 24）
+  ok   sample_err_data.json 三态合计为 24
+  ok   sample_err_data.json 每项三态合法
+  ok   sample_err_data.json fail 集合 == ['C1', 'C2', 'C3', 'C5', 'C6']（实际 ['C1', 'C2', 'C3', 'C5', 'C6']）
+  ok   sample_err_data.json 至少 1 项 fail
+  ok   sample_err_release.json 输出 24 项（实际 24）
+  ok   sample_err_release.json 三态合计为 24
+  ok   sample_err_release.json 每项三态合法
+  ok   sample_err_release.json fail 集合 == ['B1', 'B3', 'B6', 'D1', 'D2', 'D3', 'D4', 'D5']（实际 ['B1', 'B3', 'B6', 'D1', 'D2', 'D3', 'D4', 'D5']）
+  ok   sample_err_release.json 至少 1 项 fail
+  ok   变异注入(版本号不递增) 必须让 C5 报 fail
+  ok   变异注入(责任角色清空) 必须让 A1 报 fail
+
+SELF-TEST PASS assertions=23
+selftest_rc=0

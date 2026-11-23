@@ -1,0 +1,253 @@
+{
+  "input": "samples\\sample_pass.json",
+  "summary": {
+    "total": 24,
+    "pass": 22,
+    "fail": 0,
+    "manual": 2,
+    "auto_verified": 22,
+    "verdict": "ok"
+  },
+  "items": [
+    {
+      "id": "A1",
+      "group": "Content Completeness",
+      "title": "每步有责任角色",
+      "mode": "auto",
+      "role": "SOP-OWNER",
+      "on_fail": "退回模板编辑人补齐角色，重新导出后复跑",
+      "result": "pass",
+      "detail": "4 个步骤均满足责任角色非空"
+    },
+    {
+      "id": "A2",
+      "group": "Content Completeness",
+      "title": "每步有完成标准",
+      "mode": "auto",
+      "role": "SOP-OWNER",
+      "on_fail": "补写可验收的完成标准",
+      "result": "pass",
+      "detail": "4 个步骤均满足完成标准(>=10字符)"
+    },
+    {
+      "id": "A3",
+      "group": "Content Completeness",
+      "title": "每步有必需材料",
+      "mode": "auto",
+      "role": "SOP-OWNER",
+      "on_fail": "补齐材料清单或写明无需材料的理由",
+      "result": "pass",
+      "detail": "4 个步骤均满足必需材料"
+    },
+    {
+      "id": "A4",
+      "group": "Content Completeness",
+      "title": "知识库引用有效",
+      "mode": "auto",
+      "role": "KB-ADMIN",
+      "on_fail": "先发布文章或移除引用",
+      "result": "pass",
+      "detail": "4 条知识库引用均存在且已发布"
+    },
+    {
+      "id": "A5",
+      "group": "Content Completeness",
+      "title": "无占位内容",
+      "mode": "auto",
+      "role": "SOP-OWNER",
+      "on_fail": "清除 TODO/TBD 等占位内容",
+      "result": "pass",
+      "detail": "未发现占位内容"
+    },
+    {
+      "id": "A6",
+      "group": "Content Completeness",
+      "title": "前置依赖有效",
+      "mode": "auto",
+      "role": "SOP-OWNER",
+      "on_fail": "修正或删除悬空依赖",
+      "result": "pass",
+      "detail": "4 个步骤的前置依赖均有效"
+    },
+    {
+      "id": "B1",
+      "group": "Execution Feasibility",
+      "title": "SLA 取值合理",
+      "mode": "auto",
+      "role": "OPS-LEAD",
+      "on_fail": "重定 SLA 或拆步",
+      "result": "pass",
+      "detail": "4 个步骤均满足SLA(1-240 整数)"
+    },
+    {
+      "id": "B2",
+      "group": "Execution Feasibility",
+      "title": "一线代表已复核",
+      "mode": "auto",
+      "role": "OPS-LEAD",
+      "on_fail": "组织一线复核并记录结论",
+      "result": "pass",
+      "detail": "一线代表 一线代表A 已复核通过"
+    },
+    {
+      "id": "B3",
+      "group": "Execution Feasibility",
+      "title": "角色已登记",
+      "mode": "auto",
+      "role": "OPS-LEAD",
+      "on_fail": "补登记角色或改正角色名",
+      "result": "pass",
+      "detail": "责任与升级角色均已登记"
+    },
+    {
+      "id": "B4",
+      "group": "Execution Feasibility",
+      "title": "不撞营业时间",
+      "mode": "manual",
+      "role": "SHIFT-PLAN",
+      "on_fail": "调整 SLA 或补值班安排，人工签字",
+      "result": "manual",
+      "detail": "营业时间 09:00-18:00，跨日/节假日/闭馆冲突需人工核对"
+    },
+    {
+      "id": "B5",
+      "group": "Execution Feasibility",
+      "title": "有异常路径",
+      "mode": "auto",
+      "role": "SOP-OWNER",
+      "on_fail": "补异常处理与升级路径",
+      "result": "pass",
+      "detail": "4 个步骤均满足异常路径"
+    },
+    {
+      "id": "B6",
+      "group": "Execution Feasibility",
+      "title": "依赖无环",
+      "mode": "auto",
+      "role": "SOP-OWNER",
+      "on_fail": "打破循环依赖",
+      "result": "pass",
+      "detail": "依赖图无环"
+    },
+    {
+      "id": "C1",
+      "group": "Data & System",
+      "title": "step_key 唯一",
+      "mode": "auto",
+      "role": "RELEASE",
+      "on_fail": "重命名重复项并同步历史映射",
+      "result": "pass",
+      "detail": "4 个 step_key 唯一"
+    },
+    {
+      "id": "C2",
+      "group": "Data & System",
+      "title": "step_key 规范",
+      "mode": "auto",
+      "role": "RELEASE",
+      "on_fail": "按 UPPER_SNAKE 重命名",
+      "result": "pass",
+      "detail": "step_key 命名均符合 UPPER_SNAKE"
+    },
+    {
+      "id": "C3",
+      "group": "Data & System",
+      "title": "表单字段标记齐全",
+      "mode": "auto",
+      "role": "RELEASE",
+      "on_fail": "补齐 type 与 required",
+      "result": "pass",
+      "detail": "所有表单字段均有合法 type 与布尔 required"
+    },
+    {
+      "id": "C4",
+      "group": "Data & System",
+      "title": "复盘统计字段未删",
+      "mode": "auto-cond",
+      "role": "QA",
+      "on_fail": "恢复字段或同步修改复盘口径",
+      "result": "pass",
+      "detail": "2 个复盘统计字段均存在"
+    },
+    {
+      "id": "C5",
+      "group": "Data & System",
+      "title": "版本号按规则递增",
+      "mode": "auto",
+      "role": "RELEASE",
+      "on_fail": "按 S6-SOPR-014 重定版本号",
+      "result": "pass",
+      "detail": "2.2.0->2.3.0 符合 change_type=content"
+    },
+    {
+      "id": "C6",
+      "group": "Data & System",
+      "title": "字段 key 唯一规范",
+      "mode": "auto",
+      "role": "RELEASE",
+      "on_fail": "重命名字段并做数据映射",
+      "result": "pass",
+      "detail": "字段 key 唯一且命名合规"
+    },
+    {
+      "id": "D1",
+      "group": "Release & Communication",
+      "title": "变更日志已填写",
+      "mode": "auto",
+      "role": "RELEASE",
+      "on_fail": "补写变更条目",
+      "result": "pass",
+      "detail": "2 条变更记录"
+    },
+    {
+      "id": "D2",
+      "group": "Release & Communication",
+      "title": "改进提案状态合规",
+      "mode": "auto",
+      "role": "RELEASE",
+      "on_fail": "移出未通过提案或等提案通过",
+      "result": "pass",
+      "detail": "2 个关联提案均为 accepted/scheduled"
+    },
+    {
+      "id": "D3",
+      "group": "Release & Communication",
+      "title": "发布通知已起草",
+      "mode": "auto",
+      "role": "RELEASE",
+      "on_fail": "起草含生效时间与联系人的通知",
+      "result": "pass",
+      "detail": "发布通知 47 字符"
+    },
+    {
+      "id": "D4",
+      "group": "Release & Communication",
+      "title": "试运行结论已归档",
+      "mode": "auto",
+      "role": "QA",
+      "on_fail": "补试运行结论与样本量",
+      "result": "pass",
+      "detail": "试运行结论 45 字符"
+    },
+    {
+      "id": "D5",
+      "group": "Release & Communication",
+      "title": "回滚方案已写明",
+      "mode": "auto",
+      "role": "RELEASE",
+      "on_fail": "补回滚步骤与触发条件",
+      "result": "pass",
+      "detail": "回滚方案 50 字符"
+    },
+    {
+      "id": "D6",
+      "group": "Release & Communication",
+      "title": "审批签字齐备",
+      "mode": "manual",
+      "role": "OPS-LEAD",
+      "on_fail": "补齐签字，代签或越权不予发布",
+      "result": "manual",
+      "detail": "已列 1 条审批记录(运营负责人B)，签字真伪与授权范围需人工核验"
+    }
+  ]
+}
