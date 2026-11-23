@@ -29,6 +29,6 @@ SELF-TEST PASS assertions=23
 selftest_rc=0
 RESULT pass items=24 groups=4 xlsx=ok missing_fields=0
 checklist_rc=0
-SECRET-SCAN files=30 deny_literals=2 hits=0
+SECRET-SCAN files=31 deny_literals=2 hits=0
 RESULT pass (0 hits)
 secret_scan_rc=0
