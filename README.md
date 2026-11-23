@@ -10,7 +10,7 @@
 
 ```text
 ACCEPTANCE.md                   验收对照（AC ↔ 实现 ↔ 复跑命令 ↔ 实测结果）
-ACCEPTANCE-EVIDENCE.md          实测证据（命令、退出码、原始输出）
+ACCEPTANCE-EVIDENCE.md          实测证据（含英文 AC 原文逐句、24 项根级索引）
 MANIFEST.sha256                 干净副本生成的 SHA256 清单
 docs/AC-MAPPING.md              平台原文、AC 与证明映射
 docs/CHECKLIST.md               检查表（Markdown，唯一真源）

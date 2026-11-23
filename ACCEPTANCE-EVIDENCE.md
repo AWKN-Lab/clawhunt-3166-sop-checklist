@@ -2,6 +2,61 @@
 
 本文件记录实测证据：命令、退出码、原始输出摘录。所有命令均在仓库根目录执行。
 
+## E-AC. Acceptance criteria (English, verbatim) with evidence
+
+Source: `GET https://clawhunt.store/api/problems/3166`, field `acceptance_criteria` (raw copy: `evidence/problem-3166.raw.json`).
+
+**AC1.** "The checklist contains 24 items across 4 groups, each with a verification method, responsible role, and handling procedure for non-compliance."
+
+- Evidence: `docs/CHECKLIST.md` (source of truth) and `docs/CHECKLIST.xlsx` contain 24 items in 4 groups; every row has verification method, responsible role and non-compliance handling. The root-level index in E-AC1 below lists all 24 items so they are readable without opening `docs/`.
+- Rerun: `python scripts/check_checklist.py` -> `RESULT pass items=24 groups=4 xlsx=ok missing_fields=0`, exit 0.
+- Observed: pass (see E2).
+
+**AC2.** "The script automatically verifies at least 10 items; the compliant sample results are only pass or manual, and the 3 samples with embedded errors each report the corresponding fail."
+
+- Evidence: `scripts/check_sop_release.py` registers 24 checks, 22 of them auto/conditional-auto. `samples/sample_pass.json` -> pass 22 / fail 0 / manual 2. Error samples report exactly: content `A1,A2,A3,A4,A5,A6`; data `C1,C2,C3,C5,C6`; release `B1,B3,B6,D1,D2,D3,D4,D5`.
+- Rerun: `python scripts/check_sop_release.py --self-test` -> `SELF-TEST PASS assertions=23`, exit 0.
+- Observed: pass (see E3/E4/E5).
+
+**AC3.** "Each item in the report is marked with one of three results: pass, fail, or manual."
+
+- Evidence: every report row and JSON item carries `result ∈ {pass, fail, manual}`; `pass + fail + manual = 24`; `manual` is never counted as pass.
+- Rerun: `python scripts/check_sop_release.py samples/sample_pass.json --format json` -> `items=24 tri_state_ok=True pass+fail+manual=24 auto_verified=22`, exit 0.
+- Observed: pass (see E4, `evidence/ac3-check.log`).
+
+### E-AC1. Root-level index of all 24 checklist items
+
+Auto-check command for every row: `python scripts/check_sop_release.py samples/sample_pass.json --format json` (results below are the observed results for the compliant sample).
+
+| ID | Item | Pass criteria | Auto-check command | Observed |
+|---|---|---|---|---|
+| A1 | Every step has an assigned role | `assigned_role` non-empty for every step | `check_a1` via command above | pass |
+| A2 | Every step has completion criteria | `completion_criteria` non-empty, at least 10 chars | `check_a2` via command above | pass |
+| A3 | Every step has required materials | `required_materials` is a non-empty list | `check_a3` via command above | pass |
+| A4 | Referenced KB articles exist and are published | Each ID exists in KB stub with `status=published` | `check_a4` via command above | pass |
+| A5 | No placeholder content | No TODO/TBD/待补充/待定/占位/xxx/??? in title, criteria or materials | `check_a5` via command above | pass |
+| A6 | Prerequisites are valid | Every prerequisite points to an existing `step_key` | `check_a6` via command above | pass |
+| B1 | SLA value is reasonable | Integer `sla_hours` in 1..240 for every step | `check_b1` via command above | pass |
+| B2 | Front-line representative reviewed | `reviewers` contains `role=frontline_rep`, `decision=approved` | `check_b2` via command above | pass |
+| B3 | Roles are registered | Assigned and escalation roles exist in `template.roles` | `check_b3` via command above | pass |
+| B4 | SLA does not conflict with club operating hours | Cross-day, holiday and closure conflicts need human judgement | manual (human sign-off) | manual |
+| B5 | Exception path is defined | `exception_path` non-empty, at least 5 chars | `check_b5` via command above | pass |
+| B6 | No dependency cycles | Prerequisite graph has no cycle | `check_b6` via command above | pass |
+| C1 | `step_key` is unique | No duplicate `step_key` | `check_c1` via command above | pass |
+| C2 | `step_key` naming is compliant | Matches `^[A-Z][A-Z0-9_]{2,63}$` | `check_c2` via command above | pass |
+| C3 | Form fields have type and required markers | Every field has a valid `type` and boolean `required` | `check_c3` via command above | pass |
+| C4 | Retrospective metric fields are not deleted | Fields in `review_metrics` still exist; no metrics -> manual | `check_c4` via command above | pass |
+| C5 | Version increments per S6-SOPR-014 | Semver grows and the incremented position matches `change_type` | `check_c5` via command above | pass |
+| C6 | Field keys are unique and compliant | Unique per step, matches `^[a-z][a-z0-9_]{1,63}$` | `check_c6` via command above | pass |
+| D1 | Change log is filled | Non-empty changelog, no empty entries | `check_d1` via command above | pass |
+| D2 | Linked proposals are accepted or scheduled | Every linked proposal status is `accepted` or `scheduled` | `check_d2` via command above | pass |
+| D3 | Release notice is drafted | `release_notice` non-empty, at least 20 chars | `check_d3` via command above | pass |
+| D4 | Pilot run conclusion is archived | `pilot_conclusion` non-empty, at least 20 chars | `check_d4` via command above | pass |
+| D5 | Rollback plan is documented | `rollback_plan` non-empty, at least 20 chars | `check_d5` via command above | pass |
+| D6 | Approvals are complete | Identity, authority scope and signatures need human verification | manual (human sign-off) | manual |
+
+Implementation: each `check_*` function lives in `scripts/check_sop_release.py`; the `CHECKS` registry maps IDs, groups, roles and non-compliance handling.
+
 ## E0. 环境
 
 | 项 | 值 |
@@ -109,7 +164,7 @@ python scripts/secret_scan.py --deny-literal <bid> --deny-literal <account-id>
 覆盖：私钥块、AWS/GitHub/OpenAI 形态密钥、secret/password/token 赋值、内网 IPv4、本机绝对路径、邮箱、bid/agent 标识、非 ASCII 文件名。
 
 ```text
-SECRET-SCAN files=29 deny_literals=2 hits=0
+SECRET-SCAN files=30 deny_literals=2 hits=0
 RESULT pass (0 hits)
 secret_scan_rc=0
 ```

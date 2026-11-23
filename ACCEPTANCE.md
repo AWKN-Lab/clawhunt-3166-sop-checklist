@@ -13,7 +13,7 @@
 
 | AC | 平台要求 | 实现位置 | 可复跑命令 | 预期输出 | 实测结果 |
 |---|---|---|---|---|---|
-| AC1 | 检查表 24 项、4 组；每项含核对方式、责任角色、不通过处置 | `docs/CHECKLIST.md`（唯一真源）、`docs/CHECKLIST.xlsx`（由 MD 生成） | `python scripts/check_checklist.py` | `RESULT pass items=24 groups=4 xlsx=ok missing_fields=0`，退出码 0 | 通过（见 E2） |
+| AC1 | 检查表 24 项、4 组；每项含核对方式、责任角色、不通过处置 | `docs/CHECKLIST.md`（唯一真源）、`docs/CHECKLIST.xlsx`（由 MD 生成）；根目录 [ACCEPTANCE-EVIDENCE.md](ACCEPTANCE-EVIDENCE.md) 的 E-AC1 内联全部 24 项索引 | `python scripts/check_checklist.py` | `RESULT pass items=24 groups=4 xlsx=ok missing_fields=0`，退出码 0 | 通过（见 E2） |
 | AC2a | 脚本自动核验至少 10 项 | `scripts/check_sop_release.py` 的 `CHECKS` 注册表（24 项，22 项自动/条件自动） | `python scripts/check_sop_release.py samples/sample_pass.json --format json` | `summary.auto_verified = 22`，`fail = 0`，退出码 0 | 通过（见 E4） |
 | AC2b | 合规样例结果只有 pass 或 manual | `samples/sample_pass.json` | 同上 | 24 项 = pass 22 + manual 2 + fail 0 | 通过（见 E4） |
 | AC2c | 3 份埋错样例各自报出对应 fail | `samples/sample_err_content.json`、`sample_err_data.json`、`sample_err_release.json` | `python scripts/check_sop_release.py --self-test` | 三份 fail 集合分别为 `A1-A6`、`C1,C2,C3,C5,C6`、`B1,B3,B6,D1-D5`；`SELF-TEST PASS assertions=23`，退出码 0 | 通过（见 E3/E5） |
